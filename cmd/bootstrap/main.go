@@ -16,7 +16,7 @@ const (
 	description = "data collection and synchronization services"
 )
 
-var dependencies = []string{"dummy.service"}
+var dependencies = []string{""}
 
 func main() {
 	var kind daemon.Kind
