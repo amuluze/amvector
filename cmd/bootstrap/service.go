@@ -5,7 +5,7 @@
 package main
 
 import (
-	"github.com/amuluze/amvector/bootstrap"
+	"github.com/amuluze/amvector/internal/bootstrap"
 	"github.com/takama/daemon"
 	"log"
 	"os"
@@ -18,7 +18,7 @@ type Service struct {
 	daemon daemon.Daemon
 }
 
-// Start start agent bootstrap service non-blocking
+// Start start amvector bootstrap service non-blocking
 func (s *Service) Start() {
 	for {
 		bootstrap.Run()
@@ -26,7 +26,7 @@ func (s *Service) Start() {
 	}
 }
 
-// Run start agent bootstrap service blocking and wait for exit signal
+// Run start amvector bootstrap service blocking and wait for exit signal
 func (s *Service) Run() {
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt, os.Kill, syscall.SIGTERM)
@@ -46,7 +46,7 @@ func (s *Service) Run() {
 	}
 }
 
-// Stop stop agent bootstrap service
+// Stop stop amvector bootstrap service
 func (s *Service) Stop() {
 	bootstrap.Stop()
 }

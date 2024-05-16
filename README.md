@@ -7,7 +7,7 @@ $ am-bootstrap install
 ```
 启动
 ```bash
-$ am-agent start
+$ am-amvector start
 ```
 停止
 ```bash
