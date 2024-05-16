@@ -10,7 +10,7 @@ ca_key="$ca_base_dir/ca.key"
 ca_pem="$ca_base_dir/ca.pem"
 
 # 生成CA私钥
-openssl genrsa -out $ca_key 4096
+openssl genrsa -out "$ca_key" 4096
 
 # 生成CA证书
 openssl req -new -x509 -days 365 -key "$ca_key" -out "$ca_pem" -nodes -subj "/C=CN/ST=Beijing/L=Beijing/O=Amuluze/OU=Amuluze/CN=root"
