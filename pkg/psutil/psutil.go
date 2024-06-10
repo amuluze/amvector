@@ -47,7 +47,7 @@ type SystemInfo struct {
 }
 
 func GetMemInfo() (float64, uint64, uint64, error) {
-	ctx := context.WithValue(context.Background(), common.EnvKey, common.EnvMap{common.HostProcEnvKey: "/host/proc"})
+	ctx := context.WithValue(context.Background(), common.EnvKey, common.EnvMap{})
 	v, err := mem.VirtualMemoryWithContext(ctx)
 	if err != nil {
 		return 0.0, 0, 0, err
@@ -56,7 +56,7 @@ func GetMemInfo() (float64, uint64, uint64, error) {
 }
 
 func GetCPUPercent() (float64, error) {
-	ctx := context.WithValue(context.Background(), common.EnvKey, common.EnvMap{common.HostProcEnvKey: "/host/proc"})
+	ctx := context.WithValue(context.Background(), common.EnvKey, common.EnvMap{})
 	totalPercent, err := cpu.PercentWithContext(ctx, 3*time.Second, false)
 	if err != nil {
 		return 0.0, err
@@ -65,7 +65,7 @@ func GetCPUPercent() (float64, error) {
 }
 
 func GetDiskInfo(devices map[string]struct{}) (map[string]DiskInfo, error) {
-	ctx := context.WithValue(context.Background(), common.EnvKey, common.EnvMap{common.HostRootEnvKey: "/rootfs"})
+	ctx := context.WithValue(context.Background(), common.EnvKey, common.EnvMap{})
 	diskMap := make(map[string]DiskInfo)
 	infos, _ := disk.PartitionsWithContext(ctx, false)
 	slog.Info("disk infos", "infos", infos)
@@ -92,7 +92,7 @@ func GetDiskInfo(devices map[string]struct{}) (map[string]DiskInfo, error) {
 }
 
 func GetDiskIO(devices map[string]struct{}) (map[string]DiskIO, error) {
-	ctx := context.WithValue(context.Background(), common.EnvKey, common.EnvMap{common.HostProcEnvKey: "/host/proc"})
+	ctx := context.WithValue(context.Background(), common.EnvKey, common.EnvMap{})
 	diskMap := make(map[string]DiskIO)
 	// 实现磁盘IO的获取逻辑
 	var names []string
@@ -120,7 +120,7 @@ func GetDiskIO(devices map[string]struct{}) (map[string]DiskIO, error) {
 }
 
 func GetNetworkIO(eth map[string]struct{}) (map[string]NetIO, error) {
-	ctx := context.WithValue(context.Background(), common.EnvKey, common.EnvMap{common.HostProcEnvKey: "/host/proc"})
+	ctx := context.WithValue(context.Background(), common.EnvKey, common.EnvMap{})
 
 	netMap := make(map[string]NetIO)
 	IOCountersStat, err := net.IOCountersWithContext(ctx, true)
@@ -144,10 +144,7 @@ func GetNetworkIO(eth map[string]struct{}) (map[string]NetIO, error) {
 
 // GetSystemInfo 获取系统信息
 func GetSystemInfo() (*SystemInfo, error) {
-	ctx := context.WithValue(context.Background(), common.EnvKey, common.EnvMap{
-		common.HostSysEnvKey:  "/host/sys",
-		common.HostProcEnvKey: "/host/proc",
-	})
+	ctx := context.WithValue(context.Background(), common.EnvKey, common.EnvMap{})
 
 	info, err := host.InfoWithContext(ctx)
 	if err != nil {

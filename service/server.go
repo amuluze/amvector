@@ -9,7 +9,7 @@ import "log/slog"
 func Run(configFile string) (func(), error) {
 	injector, clearFunc, err := BuildInjector(configFile)
 	if err != nil {
-		slog.Error("build injector failed: %v", "err", err)
+		slog.Error("build injector failed:", "err", err)
 		return nil, err
 	}
 

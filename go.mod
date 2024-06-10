@@ -91,6 +91,6 @@ require (
 	github.com/amuluze/amutool/logger v0.0.0-20240510090832-32eaf1044cf1
 	github.com/google/wire v0.6.0
 	github.com/spf13/viper v1.19.0
-	golang.org/x/sys v0.19.0 // indirect
+	golang.org/x/sys v0.21.0 // indirect
 	gorm.io/gorm v1.25.10
 )
