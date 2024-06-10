@@ -6,17 +6,17 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"os/signal"
 	"syscall"
-	"time"
 
+	"github.com/amuluze/amvector/service"
 	"github.com/takama/daemon"
 )
 
 type Service struct {
-	daemon daemon.Daemon
+	configFile configFile
+	daemon     daemon.Daemon
 }
 
 // Start start amvector bootstrap service non-blocking
@@ -27,20 +27,15 @@ func (s *Service) Start() {
 // Run start amvector bootstrap service blocking and wait for exit signal
 func (s *Service) Run() {
 	interrupt := make(chan os.Signal, 1)
-	signal.Notify(interrupt, os.Interrupt, os.Kill, syscall.SIGTERM)
+	signal.Notify(interrupt, os.Interrupt, syscall.SIGTERM)
+	clearFunc, err := service.Run(s.configFile)
+	if err != nil {
+		return
+	}
 
-	go func() {
-		select {
-		case sig := <-interrupt:
-			log.Println("Got signal:", sig)
-			bootstrap.Stop()
-			os.Exit(0)
-		}
-	}()
-
-	for {
-		bootstrap.Run()
-		time.Sleep(10 * time.Second)
+	for range interrupt {
+		clearFunc()
+		return
 	}
 }
 
@@ -51,9 +46,9 @@ func (s *Service) Stop() {
 
 func (s *Service) manager() (string, error) {
 	usage := "Usage: amvector install | remove | start | stop | status"
-
-	if len(os.Args) > 0 {
-		cmd := os.Args[0]
+	fmt.Printf("os args: %#v\n", os.Args)
+	if len(os.Args) > 1 {
+		cmd := os.Args[1]
 		switch cmd {
 		case "install":
 			return s.daemon.Install()

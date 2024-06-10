@@ -1,23 +1,33 @@
 # amvector
+
 数据采集及同步服务
 
 安装：
+
 ```bash
-$ am-bootstrap install
+amvector install
 ```
+
 启动
+
 ```bash
-$ am-amvector start
+amvector start
 ```
+
 停止
+
 ```bash
-$ am-bootstrap stop
+amvector stop
 ```
+
 移除
+
 ```bash
-$ am-bootstrap remove
+amvector remove
 ```
+
 查看状态
+
 ```bash
-$ am-bootstrap status
+amvector status
 ```

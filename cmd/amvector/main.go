@@ -5,10 +5,12 @@
 package main
 
 import (
+	"flag"
 	"fmt"
-	"github.com/takama/daemon"
 	"os"
 	"runtime"
+
+	"github.com/takama/daemon"
 )
 
 const (
@@ -18,7 +20,12 @@ const (
 
 var dependencies = []string{""}
 
+var configFile string
+
 func main() {
+	flag.StringVar(&configFile, "conf", "./configs/config.toml", "config file path")
+	flag.Parse()
+
 	var kind daemon.Kind
 	if runtime.GOOS == "darwin" {
 		kind = daemon.GlobalDaemon
@@ -31,7 +38,7 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	service := &Service{daemon: src}
+	service := &Service{daemon: src, configFile: configFile}
 	status, err := service.manager()
 	if err != nil {
 		fmt.Println(status, "\nError: ", err)
