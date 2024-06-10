@@ -20,8 +20,21 @@ func Run(configFile string) (func(), error) {
 	timedTask := injector.Task
 	go timedTask.Run()
 
+	// rpc server
+	rpcServer := injector.RPCServer
+	go func() {
+		err := rpcServer.Start()
+		if err != nil {
+			slog.Error("rpc server start failed:", "err", err)
+		}
+	}()
+
 	return func() {
 		timedTask.Stop()
+		err := rpcServer.Stop()
+		if err != nil {
+			slog.Error("rpc server stop failed:", "err", err)
+		}
 		clearFunc()
 	}, nil
 }

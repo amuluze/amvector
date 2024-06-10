@@ -12,15 +12,17 @@ import (
 var InjectorSet = wire.NewSet(NewInjector)
 
 type Injector struct {
-	Config *Config
-	Logger *logger.Logger
-	Task   *TimedTask
+	Config    *Config
+	Logger    *logger.Logger
+	Task      *TimedTask
+	RPCServer *Server
 }
 
-func NewInjector(config *Config, task *TimedTask, logx *logger.Logger) (*Injector, error) {
+func NewInjector(config *Config, task *TimedTask, rpcServer *Server, logx *logger.Logger) (*Injector, error) {
 	return &Injector{
-		Config: config,
-		Task:   task,
-		Logger: logx,
+		Config:    config,
+		Task:      task,
+		RPCServer: rpcServer,
+		Logger:    logx,
 	}, nil
 }

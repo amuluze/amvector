@@ -5,7 +5,6 @@ package service
 
 import (
 	"github.com/amuluze/amvector/service/model"
-
 	"github.com/google/wire"
 )
 
@@ -15,6 +14,7 @@ func BuildInjector(configFile string) (*Injector, func(), error) {
 		NewLogger,
 		NewDB,
 		model.Set,
+		NewRPCServer,
 		NewTimedTask,
 		InjectorSet,
 	)

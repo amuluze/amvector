@@ -1,3 +1,6 @@
+[Rpc]
+Address = "/data/amvector/amvector.socket"
+
 # 数据库文件存放位置的配置
 [Gorm]
 # 是否开启调试模式
@@ -44,5 +47,5 @@ Interval = 30 # 单位 s
 [Logger]
 File = "/data/amvector/vector.log"
 Level = "debug"
-RotationTime = "1"  # 每天切分一个日志文件
-MaxAge = "7"        # 最多保留 7 天的日志
+RotationTime = 1  # 每天切分一个日志文件
+MaxAge = 7        # 最多保留 7 天的日志

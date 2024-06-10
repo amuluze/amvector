@@ -11,6 +11,7 @@ import (
 )
 
 type Config struct {
+	Rpc      Rpc
 	Gorm     Gorm
 	DB       DB
 	Disk     Disk
@@ -35,6 +36,10 @@ func NewConfig(configFile string) (*Config, error) {
 	}
 
 	return config, nil
+}
+
+type Rpc struct {
+	Address string
 }
 
 type Gorm struct {
