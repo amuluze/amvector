@@ -5,13 +5,14 @@
 package main
 
 import (
-	"github.com/amuluze/amvector/internal/bootstrap"
-	"github.com/takama/daemon"
+	"fmt"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/takama/daemon"
 )
 
 type Service struct {
@@ -20,10 +21,7 @@ type Service struct {
 
 // Start start amvector bootstrap service non-blocking
 func (s *Service) Start() {
-	for {
-		bootstrap.Run()
-		time.Sleep(10 * time.Second)
-	}
+	fmt.Printf("Starting amvector bootstrap service...\n")
 }
 
 // Run start amvector bootstrap service blocking and wait for exit signal
@@ -48,7 +46,7 @@ func (s *Service) Run() {
 
 // Stop stop amvector bootstrap service
 func (s *Service) Stop() {
-	bootstrap.Stop()
+	fmt.Println("Stopping amvector bootstrap service...")
 }
 
 func (s *Service) manager() (string, error) {
