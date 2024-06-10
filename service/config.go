@@ -14,6 +14,7 @@ type Config struct {
 	Disk     Disk
 	Task     Task
 	Ethernet Ethernet
+	Logger   Logger
 }
 
 func NewConfig(configFile string) (*Config, error) {
@@ -29,4 +30,43 @@ func NewConfig(configFile string) (*Config, error) {
 	}
 
 	return config, nil
+}
+
+type Gorm struct {
+	GenDoc            bool
+	Debug             bool
+	DBType            string
+	MaxLifetime       int
+	MaxOpenConns      int
+	MaxIdleConns      int
+	TablePrefix       string
+	EnableAutoMigrate bool
+}
+
+type DB struct {
+	Host     string
+	Port     string
+	User     string
+	Password string
+	DBName   string
+	SSLMode  string
+}
+
+type Disk struct {
+	Devices []string
+}
+
+type Task struct {
+	Interval int
+}
+
+type Ethernet struct {
+	Names []string
+}
+
+type Logger struct {
+	File         string
+	Level        string
+	RotationTime int
+	MaxAge       int
 }

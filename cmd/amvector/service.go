@@ -15,11 +15,11 @@ import (
 )
 
 type Service struct {
-	configFile configFile
+	configFile string
 	daemon     daemon.Daemon
 }
 
-// Start start amvector bootstrap service non-blocking
+// Start amvector bootstrap service non-blocking
 func (s *Service) Start() {
 	fmt.Printf("Starting amvector bootstrap service...\n")
 }
@@ -39,7 +39,7 @@ func (s *Service) Run() {
 	}
 }
 
-// Stop stop amvector bootstrap service
+// Stop amvector bootstrap service
 func (s *Service) Stop() {
 	fmt.Println("Stopping amvector bootstrap service...")
 }

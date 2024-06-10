@@ -25,7 +25,7 @@ User = ""
 # 密码
 Password = ""
 # 数据库
-DBName = "/app/probe"
+DBName = "/data/amvector/vector"
 # SSL模式
 SSLMode = ""
 
@@ -40,3 +40,9 @@ Names = ["eth0"]
 [Task]
 # 主机监控数据的采集频率
 Interval = 30 # 单位 s
+
+[Logger]
+File = "/data/amvector/vector.log"
+Level = "debug"
+RotationTime = "1"  # 每天切分一个日志文件
+MaxAge = "7"        # 最多保留 7 天的日志
