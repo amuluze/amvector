@@ -33,17 +33,32 @@ type Container struct {
 	MemLimit    float64
 }
 
+type HostArgs struct {
+}
+
+type Host struct {
+	gorm.Model
+	Timestamp       time.Time
+	Uptime          string
+	Hostname        string
+	Os              string
+	Platform        string
+	PlatformVersion string
+	KernelVersion   string
+	KernelArch      string
+}
+
 func main() {
 	addr := "/data/amvector/amvector.socket"
 	d, _ := client.NewPeer2PeerDiscovery("unix@"+addr, "")
 	xclient := client.NewXClient("Service", client.Failtry, client.RandomSelect, d, client.DefaultOption)
 	defer xclient.Close()
 
-	args := &ContainerQueryArgs{Page: 1, Size: 20}
-	var reply []Container
-	err := xclient.Call(context.Background(), "ContainerList", args, &reply)
+	args := &HostArgs{}
+	var reply Host
+	err := xclient.Call(context.Background(), "HostInfo", args, &reply)
 	if err != nil {
 		fmt.Println("failed to call:", err)
 	}
-	fmt.Println("reply:", reply)
+	fmt.Printf("reply: %#v\n", reply)
 }

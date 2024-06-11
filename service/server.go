@@ -7,6 +7,7 @@ package service
 import "log/slog"
 
 func Run(configFile string) (func(), error) {
+	slog.Info("config file", "info", configFile)
 	injector, clearFunc, err := BuildInjector(configFile)
 	if err != nil {
 		slog.Error("build injector failed:", "err", err)

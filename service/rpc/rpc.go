@@ -7,19 +7,13 @@ package rpc
 import (
 	"github.com/amuluze/amutool/database"
 	"github.com/amuluze/amutool/docker"
-	"log/slog"
 )
 
 type Service struct {
-	db      *database.DB
-	manager *docker.Manager
+	DB      *database.DB
+	Manager *docker.Manager
 }
 
 func NewService(db *database.DB, manager *docker.Manager) *Service {
-	return &Service{db: db, manager: manager}
-}
-
-func (s *Service) Ping() error {
-	slog.Info("rpc service ping")
-	return nil
+	return &Service{DB: db, Manager: manager}
 }

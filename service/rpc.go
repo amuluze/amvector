@@ -22,9 +22,9 @@ func NewRPCServer(config *Config, db *database.DB) (*Server, error) {
 	if err != nil {
 		return nil, err
 	}
-	service := rpc.NewService(db, manager)
+	s := rpc.NewService(db, manager)
 
-	err = srv.Register(service, "")
+	err = srv.Register(s, "")
 	if err != nil {
 		return nil, err
 	}
